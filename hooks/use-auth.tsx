@@ -102,12 +102,52 @@ async function fetchProfileFromDB(userId: string): Promise<UserProfile | null> {
       .single();
 
     if (error) {
-      console.warn("Profile fetch error:", error.message);
+      // PGRST116 = no rows found, expected for new users
+      if (error.code !== "PGRST116") {
+        console.warn("Profile fetch error:", error.message);
+      }
       return null;
     }
     return data as UserProfile;
   } catch (err) {
     console.error("Profile fetch exception:", err);
+    return null;
+  }
+}
+
+// Helper to ensure profile exists in database
+async function ensureProfileInDB(user: User): Promise<UserProfile | null> {
+  try {
+    const supabase = getSupabaseClient();
+    const fullName = user.user_metadata?.full_name
+      || user.user_metadata?.name
+      || user.email?.split("@")[0]
+      || null;
+
+    const { data, error } = await (supabase.from("profiles") as any)
+      .upsert({
+        id: user.id,
+        email: user.email || "",
+        full_name: fullName,
+        avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
+        role: "USER",
+        is_active: true,
+        email_verified: !!user.email_confirmed_at,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: "id",
+        ignoreDuplicates: false,
+      })
+      .select("*")
+      .single();
+
+    if (error) {
+      console.warn("Profile upsert error:", error.message);
+      return null;
+    }
+    return data as UserProfile;
+  } catch (err) {
+    console.error("Profile upsert exception:", err);
     return null;
   }
 }
@@ -130,7 +170,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session: Session,
     mounted: { current: boolean }
   ) => {
+    // 1. Try fetching existing profile from DB
     let profile = await fetchProfileFromDB(user.id);
+
+    // 2. No profile row? Create one from user metadata so it persists
+    if (!profile) {
+      profile = await ensureProfileInDB(user);
+    }
+
+    // 3. Last resort fallback (DB write also failed)
     if (!profile) {
       profile = createProfileFromUser(user);
     }
