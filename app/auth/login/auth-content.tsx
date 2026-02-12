@@ -139,13 +139,7 @@ export default function AuthContent() {
         return;
       }
 
-      if (data.user && !data.session) {
-        setAuthState("idle");
-        setSuccessMessage("Check your email for a confirmation link to complete your registration.");
-        return;
-      }
-
-      if (data.session) {
+      if (data.user) {
         setAuthState("success");
         setLoadingMessage(`Welcome, ${formData.fullName || "there"}!`);
         setTimeout(() => router.push(redirectTo), 2000);
