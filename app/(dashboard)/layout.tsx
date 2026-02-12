@@ -15,9 +15,7 @@ import {
   X,
   Bell,
   ChevronDown,
-  ExternalLink,
   Plus,
-  BookOpen,
   Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -301,35 +299,24 @@ function Sidebar({ isOpen, onClose, onNotifOpen }: { isOpen: boolean; onClose: (
                 );
               })}
 
-              {/* Docs link */}
-              <a
-                href="https://docs.layerium.cloud"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 h-11 px-3 rounded-xl font-dm-sans text-[13px] text-white/50 hover:text-white/90 hover:bg-white/[0.04] transition-all duration-150"
-              >
-                <BookOpen className="w-[18px] h-[18px] text-white/35 group-hover:text-white/50" />
-                Docs
-                <ExternalLink className="w-3 h-3 ml-auto text-white/20" />
-              </a>
             </div>
           </nav>
 
-          {/* User Profile at Bottom */}
-          <div className="p-4 border-t border-white/[0.06]">
+          {/* User Profile */}
+          <div className="px-4 pb-4 pt-2">
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/[0.06] transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-white/[0.06] transition-all duration-200"
               >
-                <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center font-dm-sans text-[14px] font-bold text-white">
+                <div className="w-9 h-9 rounded-xl bg-primary/90 flex items-center justify-center font-dm-sans text-[13px] font-bold text-white flex-shrink-0">
                   {userInitial}
                 </div>
                 <div className="flex-1 text-left min-w-0">
-                  <p className="font-dm-sans text-[13px] font-medium text-white truncate">{userName}</p>
-                  <p className="font-outfit text-[11px] text-white/40 truncate">{profile?.email}</p>
+                  <p className="font-dm-sans text-[13px] font-medium text-white truncate leading-tight">{userName}</p>
+                  <p className="font-outfit text-[11px] text-white/35 truncate leading-tight mt-0.5">{profile?.email}</p>
                 </div>
-                <ChevronDown className={cn("w-4 h-4 text-white/40 transition-transform duration-200", userMenuOpen && "rotate-180")} />
+                <ChevronDown className={cn("w-3.5 h-3.5 text-white/30 transition-transform duration-200 flex-shrink-0", userMenuOpen && "rotate-180")} />
               </button>
 
               {/* User dropdown */}
@@ -350,14 +337,6 @@ function Sidebar({ isOpen, onClose, onNotifOpen }: { isOpen: boolean; onClose: (
                       >
                         <Settings className="w-4 h-4" /> Account settings
                       </Link>
-                      <a
-                        href="https://docs.layerium.cloud"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg font-outfit text-[12px] text-white/70 hover:text-white hover:bg-white/[0.06] transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" /> Documentation
-                      </a>
                     </div>
                     <div className="border-t border-white/[0.08] p-1.5">
                       <button
