@@ -111,19 +111,3 @@ export {
   type ServerLocation,
 } from "./stats";
 
-// Re-export types
-export type {
-  Server,
-  ServerWithPlan,
-  ServerStatus,
-  Order,
-  OrderWithDetails,
-  OrderStatus,
-  Ticket,
-  TicketWithMessages,
-  TicketMessage,
-  TicketStatus,
-  TicketPriority,
-  TicketCategory,
-  Profile,
-} from "@/types/database";

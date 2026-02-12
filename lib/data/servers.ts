@@ -3,8 +3,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Server, ServerWithPlan, ServerStatus, PricingPlan } from "@/types/database";
 
-export type { Server, ServerWithPlan, ServerStatus };
-
 export interface GetServersParams {
   status?: ServerStatus | "all";
   search?: string;

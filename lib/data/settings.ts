@@ -4,8 +4,6 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { AppSetting } from "@/types/database";
 
-export type { AppSetting };
-
 export interface SettingsCategory {
   category: string;
   settings: AppSetting[];

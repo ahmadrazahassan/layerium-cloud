@@ -29,7 +29,8 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { routes } from "@/lib/routes";
-import { getUserServers, performServerAction, type ServerWithPlan } from "@/lib/data/servers";
+import { getUserServers, performServerAction } from "@/lib/data/servers";
+import type { ServerWithPlan } from "@/types/database";
 
 // Linux Icon SVG
 const LinuxIcon = ({ className }: { className?: string }) => (

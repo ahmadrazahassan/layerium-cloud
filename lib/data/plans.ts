@@ -3,8 +3,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { PricingPlan, PlanType } from "@/types/database";
 
-export type { PricingPlan, PlanType };
-
 export interface GetAllPlansParams {
   search?: string;
   type?: PlanType | "all";

@@ -3,8 +3,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Profile } from "@/types/database";
 
-export type { Profile };
-
 export interface UpdateProfileParams {
   full_name?: string;
   phone?: string;

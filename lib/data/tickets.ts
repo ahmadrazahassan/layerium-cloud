@@ -10,8 +10,6 @@ import type {
   TicketCategory 
 } from "@/types/database";
 
-export type { Ticket, TicketWithMessages, TicketMessage, TicketStatus, TicketPriority, TicketCategory };
-
 export interface GetTicketsParams {
   status?: TicketStatus | "all";
   priority?: TicketPriority | "all";

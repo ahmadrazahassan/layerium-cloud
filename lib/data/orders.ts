@@ -3,8 +3,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Order, OrderWithDetails, OrderStatus, PricingPlan, Server } from "@/types/database";
 
-export type { Order, OrderWithDetails, OrderStatus };
-
 export interface GetOrdersParams {
   status?: OrderStatus | "all";
   search?: string;
