@@ -1,0 +1,9 @@
+export { Header } from "./header";
+export { Hero } from "./hero";
+export { Features } from "./features";
+export { Pricing } from "./pricing";
+export { WhyChooseUs } from "./why-choose-us";
+export { Datacenters } from "./datacenters";
+export { Testimonials } from "./testimonials";
+export { FAQ } from "./faq";
+export { Footer } from "./footer";
