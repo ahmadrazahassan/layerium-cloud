@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { 
   ArrowRight,
   Globe,
@@ -138,16 +139,12 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, delay: 0.3, ease }}
                   className="flex flex-wrap gap-3"
                 >
-                  <Link
-                    href="/careers"
-                    className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-dark text-white font-dm-sans font-semibold rounded-full hover:bg-primary hover:scale-[1.02] transition-all duration-300"
-                  >
+                  <GreenTrialButton href="/careers" size="lg">
                     Join Our Team
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
+                  </GreenTrialButton>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-surface-1 text-dark font-dm-sans font-semibold rounded-full border border-border hover:border-dark/30 hover:bg-surface-2 transition-all duration-300"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-surface-1 text-dark font-dm-sans font-semibold rounded-lg border border-border hover:border-dark/30 hover:bg-surface-2 transition-all duration-300"
                   >
                     Contact Us
                   </Link>
@@ -532,16 +529,12 @@ export default function AboutPage() {
                   </p>
 
                   <div className="flex flex-wrap justify-center gap-3">
-                    <Link
-                      href="/careers"
-                      className="group inline-flex items-center gap-2.5 px-8 py-4 bg-white text-dark font-dm-sans font-semibold rounded-full hover:bg-primary hover:text-white hover:scale-[1.02] transition-all duration-300"
-                    >
+                    <GreenTrialButton href="/careers" size="lg">
                       View Open Roles
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
+                    </GreenTrialButton>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2.5 px-8 py-4 bg-white/10 text-white font-dm-sans font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+                      className="inline-flex items-center gap-2.5 px-8 py-4 bg-white/10 text-white font-dm-sans font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
                     >
                       Contact Us
                     </Link>

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -386,16 +387,12 @@ export function WhyChooseUs() {
 
               {/* CTA Row */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link
-                  href="/pricing"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-dark font-dm-sans font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-300"
-                >
+                <GreenTrialButton href="/pricing" size="lg">
                   View Pricing
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
+                </GreenTrialButton>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-dm-sans font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-dm-sans font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
                 >
                   Talk to Sales
                 </Link>

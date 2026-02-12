@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Header, Footer } from "@/components/marketing";
 import { cn } from "@/lib/utils";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -172,7 +173,7 @@ export default function ContactPage() {
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-dark text-white font-dm-sans font-semibold rounded-full hover:bg-primary hover:scale-[1.02] transition-all duration-300"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#BEFF00] text-dark font-dm-sans font-semibold rounded-lg border border-[#a0d600] hover:bg-[#b0f000] transition-all duration-300"
                   >
                     Send another message
                   </button>
@@ -266,7 +267,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-dark text-white font-dm-sans font-semibold rounded-full hover:bg-primary hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
+                        className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-[#BEFF00] text-dark font-dm-sans font-semibold rounded-lg border border-[#a0d600] hover:bg-[#b0f000] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
                       >
                         {isSubmitting ? (
                           <>
@@ -345,13 +346,9 @@ export default function ContactPage() {
                     Browse our FAQ for instant answers to common questions.
                   </p>
                 </div>
-                <a
-                  href="/#faq"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-dark font-dm-sans font-semibold rounded-full hover:bg-primary hover:text-white hover:scale-[1.02] transition-all duration-300"
-                >
+                <GreenTrialButton href="/#faq" size="lg">
                   View FAQ
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+                </GreenTrialButton>
               </div>
             </div>
           </motion.div>

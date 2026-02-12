@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronRight, LayoutDashboard, LogOut, User, ChevronDown } from "lucide-react";
 import { LayeriumLogo } from "@/components/ui/logo";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { routes } from "@/lib/routes";
 import { createClient } from "@/lib/supabase/client";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
@@ -292,15 +293,12 @@ export function Header() {
                     <FlipText>Sign in</FlipText>
                   </Link>
                   
-                  <Link
+                  <GreenTrialButton
                     href={`${routes.auth.login}?mode=signup`}
-                    className="group flex items-center gap-1.5 px-4 py-2 bg-dark text-white font-dm-sans text-[13px] font-semibold rounded-full hover:bg-primary transition-colors duration-300"
+                    size="sm"
                   >
-                    <FlipText>Sign up</FlipText>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-70 group-hover:translate-x-0.5 transition-transform">
-                      <path d="M2.5 6H9.5M9.5 6L6.5 3M9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </Link>
+                    Sign up
+                  </GreenTrialButton>
                 </motion.div>
               ) : null}
             </div>
@@ -436,13 +434,12 @@ export function Header() {
                       >
                         Sign in
                       </Link>
-                      <Link
+                      <GreenTrialButton
                         href={`${routes.auth.login}?mode=signup`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="w-full text-center font-dm-sans text-[15px] font-semibold text-white bg-dark py-3.5 rounded-full hover:bg-primary transition-colors"
+                        className="w-full justify-center"
                       >
-                        Sign up →
-                      </Link>
+                        Sign up
+                      </GreenTrialButton>
                     </motion.div>
                   ) : null}
                 </div>

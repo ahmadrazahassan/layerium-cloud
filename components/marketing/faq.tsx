@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Plus } from "lucide-react";
-import { FlipButton, ArrowIcon } from "@/components/ui/flip-button";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 
 // Premium easing
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -139,9 +139,9 @@ export function FAQ() {
                 can't find what you're looking for? reach out to our support team.
               </p>
               
-              <FlipButton href="/contact" variant="dark" icon={<ArrowIcon />}>
-                contact support
-              </FlipButton>
+              <GreenTrialButton href="/contact">
+                Contact Support
+              </GreenTrialButton>
             </motion.div>
           </div>
 

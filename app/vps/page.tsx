@@ -19,6 +19,7 @@ import {
 import { Header, Footer } from "@/components/marketing";
 import { buildPricingActionUrl } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { WireframeDottedGlobe } from "@/components/ui/wireframe-dotted-globe";
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -312,14 +313,10 @@ function PricingSection() {
               </div>
             </div>
 
-            {/* Deploy Button */}
-            <Link
-              href={buildPricingActionUrl(plan.id)}
-              className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-full font-dm-sans font-semibold transition-all duration-200 hover:bg-primary-hover hover:scale-[1.02]"
-            >
-              Deploy Now
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* Buy Button */}
+            <GreenTrialButton href={buildPricingActionUrl(plan.id)} size="md">
+              Buy Now
+            </GreenTrialButton>
           </div>
         </div>
       </motion.div>
@@ -598,16 +595,12 @@ export default function VPSPage() {
                   transition={{ duration: 0.6, delay: 0.4, ease }}
                   className="flex flex-wrap gap-3"
                 >
-                  <Link
-                    href="#plans"
-                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-dark text-white font-dm-sans font-semibold rounded-full hover:bg-primary hover:scale-[1.02] transition-all duration-300 shadow-soft"
-                  >
+                  <GreenTrialButton href="#plans" size="lg">
                     View Plans
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </GreenTrialButton>
                   <Link
                     href="#features"
-                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-surface-1 text-dark font-dm-sans font-semibold rounded-full border border-border hover:border-dark/20 hover:shadow-soft transition-all duration-300"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-surface-1 text-dark font-dm-sans font-semibold rounded-lg border border-border hover:border-dark/20 hover:shadow-soft transition-all duration-300"
                   >
                     Explore Features
                   </Link>
@@ -774,13 +767,9 @@ export default function VPSPage() {
                 <p className="font-outfit text-lg text-white/60 mb-10 max-w-lg mx-auto">
                   Get started in under 60 seconds. No credit card required.
                 </p>
-                <Link
-                  href={buildPricingActionUrl("vps-standard")}
-                  className="inline-flex items-center gap-2.5 px-10 py-5 bg-primary text-white font-dm-sans font-semibold text-lg rounded-full hover:bg-primary-hover hover:scale-[1.02] transition-all duration-300 shadow-soft"
-                >
+                <GreenTrialButton href={buildPricingActionUrl("vps-standard")} size="lg">
                   Start Free Trial
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+                </GreenTrialButton>
               </div>
             </motion.div>
           </div>

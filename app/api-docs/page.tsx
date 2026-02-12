@@ -14,6 +14,7 @@ import {
   Settings
 } from "lucide-react";
 import { Header, Footer } from "@/components/marketing";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { cn } from "@/lib/utils";
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -299,13 +300,9 @@ export default function APIDocsPage() {
                   Get your API key from the dashboard and start building.
                 </p>
               </div>
-              <a
-                href="/dashboard"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-dark font-dm-sans font-semibold rounded-full hover:bg-primary hover:text-white hover:scale-[1.02] transition-all duration-300"
-              >
+              <GreenTrialButton href="/dashboard" size="lg">
                 Get API Key
-                <ArrowRight className="w-4 h-4" />
-              </a>
+              </GreenTrialButton>
             </div>
           </motion.div>
         </div>

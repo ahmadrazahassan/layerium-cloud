@@ -5,6 +5,7 @@ import { motion, useInView, useMotionValue, useTransform, animate } from "framer
 import { Star, ArrowRight, Quote } from "lucide-react";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 
 // Premium easing
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -291,13 +292,7 @@ export function Testimonials() {
             transition={{ duration: 0.5, ease }}
             className="text-center"
           >
-            <Link
-              href={routes.auth.signup}
-              className="group inline-flex items-center gap-2.5 px-7 py-4 bg-white text-dark font-dm-sans text-[15px] font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-300"
-            >
-              Join 500+ Happy Customers
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-            </Link>
+            <GreenTrialButton href={routes.auth.signup} size="lg" />
           </motion.div>
         </div>
       </div>

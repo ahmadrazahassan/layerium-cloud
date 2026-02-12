@@ -3,10 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, Server, Monitor } from "lucide-react";
+import { ArrowRight, Check, Server, Monitor, ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Header, Footer } from "@/components/marketing";
-import { FlipButton, ArrowIcon } from "@/components/ui/flip-button";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { buildPricingActionUrl, routes } from "@/lib/routes";
 
 interface Plan {
@@ -129,13 +129,9 @@ function PlanDisplay({ plan, type }: { plan: Plan; type: "VPS" | "RDP" }) {
             </div>
           </div>
 
-          <Link
-            href={buildPricingActionUrl(plan.id)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-dark text-white rounded-full font-dm-sans font-semibold text-[15px] hover:bg-primary transition-colors duration-300"
-          >
-            Deploy {plan.name}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <GreenTrialButton href={buildPricingActionUrl(plan.id)} size="lg">
+            Buy Now
+          </GreenTrialButton>
         </div>
 
         {/* Right - Features */}
@@ -256,17 +252,14 @@ function PlansGrid({ plans, type }: { plans: Plan[]; type: "VPS" | "RDP" }) {
             </div>
 
             {/* Purchase Button */}
-            <Link
-              href={buildPricingActionUrl(plan.id)}
-              className={cn(
-                "flex items-center justify-center gap-2 w-full py-3 rounded-full font-dm-sans font-semibold text-sm transition-all duration-300",
-                plan.isPopular
-                  ? "bg-primary text-white hover:bg-primary-hover"
-                  : "bg-primary text-white hover:bg-primary-hover"
-              )}
-            >
-              Purchase Now
-            </Link>
+            <div className="flex justify-center">
+              <GreenTrialButton
+                href={buildPricingActionUrl(plan.id)}
+                size="sm"
+              >
+                Buy Now
+              </GreenTrialButton>
+            </div>
           </div>
         </motion.div>
       ))}
@@ -398,9 +391,9 @@ export default function PricingPage() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-3">
-                <FlipButton href="/contact" variant="white" icon={<ArrowIcon />}>
+                <GreenTrialButton href="/contact" size="lg">
                   Contact Sales
-                </FlipButton>
+                </GreenTrialButton>
               </div>
             </div>
           </motion.div>
@@ -417,9 +410,9 @@ export default function PricingPage() {
             <p className="font-outfit text-dark-muted text-lg mb-6">
               Have questions? Check out our FAQ.
             </p>
-            <FlipButton href="/#faq" variant="dark" icon={<ArrowIcon />}>
+            <GreenTrialButton href="/#faq">
               View FAQ
-            </FlipButton>
+            </GreenTrialButton>
           </motion.div>
         </section>
       </main>

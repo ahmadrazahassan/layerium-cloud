@@ -267,7 +267,7 @@ export default function BlogPage() {
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-dark font-dm-sans font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#BEFF00] text-dark font-dm-sans font-semibold rounded-lg border border-[#a0d600] hover:bg-[#b0f000] transition-all duration-300"
                 >
                   Subscribe
                   <ArrowRight className="w-4 h-4" />

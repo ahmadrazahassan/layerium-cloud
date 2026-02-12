@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buildPricingActionUrl } from "@/lib/routes";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 
 type ServiceType = "RDP" | "VPS";
 
@@ -165,18 +166,14 @@ function PricingCard({ plan, index }: { plan: Plan; index: number }) {
           </div>
 
           {/* CTA */}
-          <Link
-            href={buildPricingActionUrl(plan.id)}
-            className={cn(
-              "flex items-center justify-center gap-2 w-full py-4 rounded-full font-dm-sans font-semibold text-[15px] transition-all duration-300",
-              plan.isPopular
-                ? "bg-primary text-white hover:bg-primary-hover shadow-soft"
-                : "bg-dark text-white hover:bg-primary"
-            )}
-          >
-            Deploy Now
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex justify-center">
+            <GreenTrialButton
+              href={buildPricingActionUrl(plan.id)}
+              size="md"
+            >
+              Buy Now
+            </GreenTrialButton>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -348,18 +345,14 @@ function ComparisonTable({ plans }: { plans: Plan[] }) {
               plan.isPopular && "bg-primary/[0.02]"
             )}
           >
-            <Link
-              href={buildPricingActionUrl(plan.id)}
-              className={cn(
-                "flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-dm-sans font-semibold text-sm transition-all duration-300",
-                plan.isPopular
-                  ? "bg-primary text-white hover:bg-primary-hover"
-                  : "bg-dark text-white hover:bg-primary"
-              )}
-            >
-              Deploy Now
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className="flex justify-center">
+              <GreenTrialButton
+                href={buildPricingActionUrl(plan.id)}
+                size="sm"
+              >
+                Buy Now
+              </GreenTrialButton>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -481,13 +474,9 @@ export function Pricing() {
               <p className="font-google-sans font-semibold text-dark text-lg mb-1">Need custom resources?</p>
               <p className="font-outfit text-sm text-dark-muted">Contact us for enterprise solutions with dedicated support.</p>
             </div>
-            <Link
-              href="/contact"
-              className="flex items-center gap-2 px-7 py-3.5 bg-dark text-white rounded-full font-dm-sans font-semibold text-sm hover:bg-primary transition-all duration-300 whitespace-nowrap"
-            >
+            <GreenTrialButton href="/contact" size="md">
               Contact Sales
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            </GreenTrialButton>
           </div>
         </motion.div>
       </div>

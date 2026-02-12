@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Globe } from "@/components/ui/globe";
-import { FlipButton, ArrowIcon } from "@/components/ui/flip-button";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { Check } from "lucide-react";
 import type { COBEOptions } from "cobe";
 
@@ -281,9 +281,9 @@ export function Datacenters() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-14 text-center"
         >
-          <FlipButton href="#pricing" variant="dark" icon={<ArrowIcon />}>
+          <GreenTrialButton href="#pricing" size="lg">
             Start Deploying Now
-          </FlipButton>
+          </GreenTrialButton>
         </motion.div>
       </div>
     </section>

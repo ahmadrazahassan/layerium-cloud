@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FlipButton, ArrowIcon } from "@/components/ui/flip-button";
+import { GreenTrialButton } from "@/components/ui/flip-button";
 import { routes } from "@/lib/routes";
 
 // Same logo from header
@@ -116,12 +116,13 @@ export function Footer() {
               </div>
               
               <div className="flex flex-wrap gap-3">
-                <FlipButton href={`${routes.auth.login}?mode=signup`} variant="white" icon={<ArrowIcon />}>
-                  Start Free
-                </FlipButton>
-                <FlipButton href={routes.contact} variant="ghost">
+                <GreenTrialButton href={`${routes.auth.login}?mode=signup`} size="lg" />
+                <Link
+                  href={routes.contact}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 text-white font-dm-sans font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
+                >
                   Contact Sales
-                </FlipButton>
+                </Link>
               </div>
             </div>
           </div>

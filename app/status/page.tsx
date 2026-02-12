@@ -272,7 +272,7 @@ export default function StatusPage() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-dark text-white font-dm-sans font-semibold rounded-full hover:bg-primary transition-colors"
+                className="px-6 py-3 bg-[#BEFF00] text-dark font-dm-sans font-semibold rounded-lg border border-[#a0d600] hover:bg-[#b0f000] transition-colors"
               >
                 Subscribe
               </button>
