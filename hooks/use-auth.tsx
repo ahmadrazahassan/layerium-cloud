@@ -132,7 +132,7 @@ async function ensureProfileInDB(user: User): Promise<UserProfile | null> {
         avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
         role: "USER",
         is_active: true,
-        email_verified: !!user.email_confirmed_at,
+        is_email_verified: !!user.email_confirmed_at,
         updated_at: new Date().toISOString(),
       }, {
         onConflict: "id",

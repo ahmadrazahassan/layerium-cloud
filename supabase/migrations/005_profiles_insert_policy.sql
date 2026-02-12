@@ -31,7 +31,7 @@ BEGIN
         full_name,
         avatar_url,
         referral_code,
-        email_verified,
+        is_email_verified,
         metadata
     ) VALUES (
         NEW.id,
