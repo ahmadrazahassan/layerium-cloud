@@ -124,72 +124,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isAdmin: false,
   });
 
-  // Initialize auth - runs once on mount
+  // Helper to load profile and update state
+  const loadUserState = useCallback(async (
+    user: User,
+    session: Session,
+    mounted: { current: boolean }
+  ) => {
+    let profile = await fetchProfileFromDB(user.id);
+    if (!profile) {
+      profile = createProfileFromUser(user);
+    }
+
+    if (!mounted.current) return;
+
+    setState({
+      user,
+      profile,
+      session,
+      isLoading: false,
+      isAuthenticated: true,
+      isAdmin: profile?.role === "ADMIN",
+    });
+  }, []);
+
+  // Initialize auth - single source of truth via onAuthStateChange
   useEffect(() => {
-    let mounted = true;
-
-    const initAuth = async () => {
-      try {
-        const supabase = getSupabaseClient();
-        // Get current session
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.error("Session error:", error);
-          if (mounted) setState(prev => ({ ...prev, isLoading: false }));
-          return;
-        }
-
-        if (!mounted) return;
-
-        if (session?.user) {
-          // Try to get profile from database first
-          let profile = await fetchProfileFromDB(session.user.id);
-          
-          // Fallback to user metadata if no database profile
-          if (!profile) {
-            profile = createProfileFromUser(session.user);
-          }
-
-          if (!mounted) return;
-          
-          console.log("Auth initialized with profile:", profile);
-          
-          setState({
-            user: session.user,
-            profile,
-            session,
-            isLoading: false,
-            isAuthenticated: true,
-            isAdmin: profile?.role === "ADMIN",
-          });
-        } else {
-          setState({
-            user: null,
-            profile: null,
-            session: null,
-            isLoading: false,
-            isAuthenticated: false,
-            isAdmin: false,
-          });
-        }
-      } catch (error) {
-        console.error("Auth init error:", error);
-        if (mounted) setState(prev => ({ ...prev, isLoading: false }));
-      }
-    };
-
-    initAuth();
-
-    // Listen for auth state changes
+    const mounted = { current: true };
     const supabase = getSupabaseClient();
+
+    // onAuthStateChange fires INITIAL_SESSION on mount, then subsequent events.
+    // This is the single source of truth — no separate getSession() call needed.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (!mounted) return;
+        if (!mounted.current) return;
 
         console.log("Auth state change:", event, session?.user?.email);
 
-        if (event === "SIGNED_OUT") {
+        if (event === "SIGNED_OUT" || !session?.user) {
           setState({
             user: null,
             profile: null,
@@ -198,35 +169,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             isAuthenticated: false,
             isAdmin: false,
           });
-          router.push(routes.home);
+          if (event === "SIGNED_OUT") {
+            router.push(routes.home);
+          }
           return;
         }
 
-        if (session?.user) {
-          let profile = await fetchProfileFromDB(session.user.id);
-          if (!profile) {
-            profile = createProfileFromUser(session.user);
-          }
-
-          if (!mounted) return;
-          
-          setState({
-            user: session.user,
-            profile,
-            session,
-            isLoading: false,
-            isAuthenticated: true,
-            isAdmin: profile?.role === "ADMIN",
-          });
-        }
+        // INITIAL_SESSION, SIGNED_IN, TOKEN_REFRESHED — all load the user
+        await loadUserState(session.user, session, mounted);
       }
     );
 
     return () => {
-      mounted = false;
+      mounted.current = false;
       subscription.unsubscribe();
     };
-  }, [router]);
+  }, [router, loadUserState]);
 
   // Auth actions
   const signIn = useCallback(async (email: string, password: string) => {
