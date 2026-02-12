@@ -102,15 +102,14 @@ async function fetchProfileFromDB(userId: string): Promise<UserProfile | null> {
       .single();
 
     if (error) {
-      // PGRST116 = no rows found, expected for new users
       if (error.code !== "PGRST116") {
-        console.warn("Profile fetch error:", error.message);
+        console.warn("[Auth] Profile fetch error:", error.code, error.message);
       }
       return null;
     }
     return data as UserProfile;
   } catch (err) {
-    console.error("Profile fetch exception:", err);
+    console.error("[Auth] Profile fetch exception:", err);
     return null;
   }
 }
@@ -170,18 +169,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session: Session,
     mounted: { current: boolean }
   ) => {
+    console.log("[Auth] Loading profile for:", user.email, "metadata:", user.user_metadata);
+
     // 1. Try fetching existing profile from DB
     let profile = await fetchProfileFromDB(user.id);
+    console.log("[Auth] DB profile:", profile ? { full_name: profile.full_name, email: profile.email } : null);
 
     // 2. No profile row? Create one from user metadata so it persists
     if (!profile) {
+      console.log("[Auth] No DB profile, attempting upsert...");
       profile = await ensureProfileInDB(user);
+      console.log("[Auth] Upsert result:", profile ? { full_name: profile.full_name, email: profile.email } : null);
     }
 
     // 3. Last resort fallback (DB write also failed)
     if (!profile) {
+      console.log("[Auth] All DB attempts failed, using metadata fallback");
       profile = createProfileFromUser(user);
     }
+
+    console.log("[Auth] Final profile:", { full_name: profile.full_name, email: profile.email });
 
     if (!mounted.current) return;
 
@@ -201,9 +208,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const supabase = getSupabaseClient();
 
     // onAuthStateChange fires INITIAL_SESSION on mount, then subsequent events.
-    // This is the single source of truth — no separate getSession() call needed.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         if (!mounted.current) return;
 
         console.log("Auth state change:", event, session?.user?.email);
@@ -223,8 +229,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        // INITIAL_SESSION, SIGNED_IN, TOKEN_REFRESHED — all load the user
-        await loadUserState(session.user, session, mounted);
+        // Defer profile loading to next tick so Supabase client
+        // finishes setting the auth token on its internal headers.
+        // Without this, RLS queries inside onAuthStateChange fail
+        // because auth.uid() is not yet available.
+        setTimeout(() => {
+          if (!mounted.current) return;
+          loadUserState(session.user, session, mounted);
+        }, 0);
       }
     );
 
